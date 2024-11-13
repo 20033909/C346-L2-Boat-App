@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { SafeAreaView, ScrollView, Text, View, ImageBackground} from 'react-native';
+import Boat from './components/Boats';
+import boats from './components/boatArray';
+import styles from './components/styles';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const App = () => {
+    return (
+        <SafeAreaView style={styles.container}>
+            <ImageBackground
+                source={require('./assets/img/pexels-asadphoto-240526.jpg')} // Add your image path here
+                style={styles.backgroundImage}
+                resizeMode="cover" // Ensures the image covers the entire background
+            >
+                <View style={styles.overlay} />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+            <ScrollView>
+                <View style={styles.titleContainer}>
+                    <Icon name="palm-tree" style ={styles.iconSizeColor}/>
+                    <Text style={styles.title}>GETABOAT - FOR SALE</Text>
+                    <Icon name="palm-tree" style={[styles.iconSizeColor, styles.iconFlip]} />
+                </View>
+
+                {boats.map((boat, index) => (
+                    <Boat
+                        key={index}
+                        name={boat.name}
+                        description={boat.description}
+                        picture={boat.picture}
+                    />
+                ))}
+            </ScrollView>
+            </ImageBackground>
+        </SafeAreaView>
+    );
+};
+
+export default App;
